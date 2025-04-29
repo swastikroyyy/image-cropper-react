@@ -19,9 +19,6 @@ Supports exporting cropped images as **Base64**, **Blob**, or **File** — with 
 
 ## 📦 Installation
 
-> **Note**: Not yet published to npm.  
-Until then, manually copy the `Cropper.tsx` and `types.ts` into your project.
-
 ```bash
 
 npm install image-cropper-react
