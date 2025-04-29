@@ -1,0 +1,76 @@
+{
+  "name": "image-cropper-react",
+  "version": "1.0.0",
+  "description": "A lightweight, customizable React component for cropping images with drag, resize, and keyboard support. Supports exporting cropped images as Base64, Blob, or File — with options for square or circle crop boxes.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "image",
+    "cropper",
+    "crop",
+    "image-cropper",
+    "image-crop",
+    "image-cropping",
+    "image-cropper-react",
+    "image-crop-react",
+    "image-cropper-component",
+    "image-crop-component",
+    "image-cropper-library",
+    "image-crop-library",
+    "image-cropper-tool",
+    "image-crop-tool",
+    "image-cropper-ui",
+    "cropping",
+    "crop-image",
+    "image-cropper",
+    "image-crop",
+    "react-image-crop",
+    "react-crop-image",
+    "react-crop-img",
+    "react-image-cropper",
+    "react-cropper",
+    "react-image-crop",
+    "react-image-cropper-component",
+    "react-image-cropper-library",
+    "react-image-cropper-tool",
+    "react-image-cropper-ui",
+    "react-image-cropper-plugin",
+    "react-image-cropper-toolkit",
+    "react-image-cropper-widget",
+    "react-image-cropper-editor",
+    "react-image-cropper-component-library",
+    "react-image-cropper-component-toolkit",
+    "react-image-cropper-component-editor",
+    "react-image-cropper-component-ui",
+    "react-image-cropper-component-plugin",
+    "react-image-cropper-component-tool",
+    "react-image-cropper-component-widget"
+  ],
+  "author": "Swastik Roy",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.2",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swastikroyyy/image-cropper-react.git"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ]
+}
