@@ -40,7 +40,7 @@ This package provides a **lightweight**, **customizable**, and **dependency-free
 
 ---
 
-## 📦 Installation
+##  Installation
 
 To install `image-cropper-react`, run the following command:
 
@@ -54,7 +54,7 @@ yarn add image-cropper-react
 
 ---
 
-## 🚀 Usage
+##  Usage
 
 ```tsx
 import React, { useRef, useState } from "react";
@@ -140,7 +140,7 @@ export default App;
 
 ---
 
-## 🧩 Props
+##  Props
 
 | Prop             | Type                          | Default    | Description                                      |
 | ---------------- | ----------------------------- | ---------- | ------------------------------------------------ |
@@ -153,7 +153,7 @@ export default App;
 
 ---
 
-## 🔥 Ref Methods
+##  Ref Methods
 
 | Method                | Description                        |
 | --------------------- | ---------------------------------- |
@@ -167,7 +167,7 @@ cropperRef.current?.triggerCropComplete();
 
 ---
 
-## 🎨 Crop Box Behavior
+##  Crop Box Behavior
 
 - Drag inside the box to move it.
 - Resize from any corner using mouse.
@@ -177,20 +177,20 @@ cropperRef.current?.triggerCropComplete();
 
 ---
 
-## 🔗 Links
+##  Links
 
 - [NPM Package](https://www.npmjs.com/package/image-cropper-react)
 - [GitHub Repository](https://github.com/swastikroyyy/image-cropper-react)
 
 ---
 
-## 🔍 Keywords
+##  Keywords
 
 React image cropper, crop image in React, image cropper for React, cropper React component, avatar cropper React, React crop component, crop image React npm, image-cropper-react, React image cropper component, image cropping React, image cropper React library, image cropper for React apps, image cropper React UI
 
 ---
 
-## 📄 License
+##  License
 
 MIT License © 2025  
 Developed with ❤️
