@@ -1,7 +1,7 @@
 {
   "name": "image-cropper-react",
   "version": "1.0.1",
-  "description": "A lightweight and customizable React image cropper component with drag, resize, and keyboard support. Export cropped images as Base64, Blob, or File — with square and circular crop box options.",
+  "description": "A lightweight and customizable React image cropper component with drag, resize,zoom and keyboard support. Export cropped images as Base64, Blob, or File — with square and circular crop box options.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
