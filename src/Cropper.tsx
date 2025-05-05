@@ -20,6 +20,7 @@ const Cropper = React.forwardRef(
     const [resizeDirection, setResizeDirection] = useState<string | null>(null);
     const dragStart = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
     const [isShiftPressed, setIsShiftPressed] = useState(false);
+    const [zoomLevel, setZoomLevel] = useState(1);
 
     const forceUpdate = React.useReducer(() => ({}), {})[1];
 
@@ -243,6 +244,44 @@ const Cropper = React.forwardRef(
       };
     }, [isShiftPressed]);
 
+
+
+    const handleWheel = (e: React.WheelEvent) => {
+      if (!imageRef.current) return;
+
+      e.preventDefault();
+      const scaleAmount = 0.1;
+      let newZoomLevel = zoomLevel;
+
+      if (e.deltaY < 0) {
+       
+        newZoomLevel = Math.min(zoomLevel + scaleAmount, 3); 
+      } else {
+       
+        newZoomLevel = Math.max(zoomLevel - scaleAmount, 1);
+      }
+
+      setZoomLevel(newZoomLevel);
+
+      const { width: imgWidth, height: imgHeight } = imageRef.current;
+      const cropWidth = cropRef.current.width;
+      const cropHeight = cropRef.current.height;
+
+      
+      const cropCenterX = cropRef.current.x + cropWidth / 2;
+      const cropCenterY = cropRef.current.y + cropHeight / 2;
+
+    
+      const scale = `scale(${newZoomLevel})`;
+      imageRef.current.style.transformOrigin = `${cropCenterX}px ${cropCenterY}px`;
+      imageRef.current.style.transform = scale;
+
+      forceUpdate();
+    };
+
+
+
+
     const { x, y, width, height } = cropRef.current;
 
     useImperativeHandle(ref, () => ({
@@ -256,15 +295,38 @@ const Cropper = React.forwardRef(
           display: "inline-block",
           userSelect: "none",
         }}
+        onWheel={handleWheel}
       >
-        <img
-          ref={imageRef}
-          src={src}
-          alt="To Crop"
-          style={{ width: "100%", height: "auto", display: "block" }}
-          onLoad={handleImageLoad}
-        />
-
+        
+        <div
+          style={{
+            overflow: "hidden",
+            width: "100%",
+            maxWidth: "100%",
+          }}
+        >
+          <div
+            style={{
+              transform: `scale(${zoomLevel})`,
+              transformOrigin: "center center",
+              transition: "transform 0.2s ease-in-out",
+            }}
+          >
+            <img
+              ref={imageRef}
+              src={src}
+              alt="To Crop"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+              onLoad={handleImageLoad}
+            />
+          </div>
+        </div>
+    
+        
         <div
           style={{
             position: "absolute",
@@ -275,58 +337,59 @@ const Cropper = React.forwardRef(
             border: "1px dashed #035FFE",
             borderRadius: cropBoxType === "circle" ? "50%" : "0",
             boxShadow: `0 0 0 4000px rgba(0, 0, 0, 0.3)`,
-
             cursor: isDragging ? "move" : "default",
+            pointerEvents: "auto",
+            zIndex: 10,
           }}
           onMouseDown={handleMouseDown}
         >
-          {["top-left", "top-right", "bottom-left", "bottom-right"].map(
-            (dir) => (
+          {["top-left", "top-right", "bottom-left", "bottom-right"].map((dir) => (
+            <div
+              key={dir}
+              style={{
+                position: "absolute",
+                width: 20,
+                height: 20,
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                ...(dir.includes("top") ? { top: -10 } : { bottom: -10 }),
+                ...(dir.includes("left") ? { left: -10 } : { right: -10 }),
+                cursor:
+                  dir === "top-left"
+                    ? "nwse-resize"
+                    : dir === "top-right"
+                    ? "nesw-resize"
+                    : dir === "bottom-left"
+                    ? "nesw-resize"
+                    : "nwse-resize",
+                zIndex: 15,
+              }}
+              onMouseDown={(e) => handleResizeMouseDown(e, dir)}
+            >
               <div
-                key={dir}
                 style={{
-                  position: "absolute",
-                  width: 20,
-                  height: 20,
-                  backgroundColor: "transparent",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  ...(dir.includes("top") ? { top: -10 } : { bottom: -10 }),
-                  ...(dir.includes("left") ? { left: -10 } : { right: -10 }),
-                  cursor:
-                    dir === "top-left"
-                      ? "nwse-resize"
-                      : dir === "top-right"
-                      ? "nesw-resize"
+                  width: "12px",
+                  height: "12px",
+                  borderTop: "2px solid #035FFE",
+                  borderLeft: "2px solid #035FFE",
+                  transform:
+                    dir === "top-right"
+                      ? "rotate(90deg)"
                       : dir === "bottom-left"
-                      ? "nesw-resize"
-                      : "nwse-resize",
+                      ? "rotate(-90deg)"
+                      : dir === "bottom-right"
+                      ? "rotate(180deg)"
+                      : "none",
                 }}
-                onMouseDown={(e) => handleResizeMouseDown(e, dir)}
-              >
-                <div
-                  style={{
-                    width: "12px",
-                    height: "12px",
-                    borderTop: "2px solid #035FFE",
-                    borderLeft: "2px solid #035FFE",
-                    transform:
-                      dir === "top-right"
-                        ? "rotate(90deg)"
-                        : dir === "bottom-left"
-                        ? "rotate(-90deg)"
-                        : dir === "bottom-right"
-                        ? "rotate(180deg)"
-                        : "none",
-                  }}
-                />
-              </div>
-            )
-          )}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );
+    
   }
 );
 
